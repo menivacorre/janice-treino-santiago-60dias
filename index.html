@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Planilha de Treino — Janice | Martina Vasconcellos</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#8B1A2B;min-height:100vh;font-family:'Segoe UI',Arial,sans-serif}
+.header{background:linear-gradient(180deg,#6b1020 0%,#8B1A2B 100%);padding:28px 20px 22px;text-align:center;border-bottom:2px solid rgba(244,121,32,.35)}
+.logo-img{width:130px;height:130px;border-radius:16px;object-fit:cover;display:block;margin:0 auto 12px;box-shadow:0 6px 24px rgba(0,0,0,.55)}
+.tit{font-size:20px;font-weight:700;color:#F5E6C8;letter-spacing:.5px;margin-top:6px}
+.sub{font-size:13px;color:rgba(245,230,200,.72);margin-top:4px}
+.prog-box{background:rgba(0,0,0,.25);border:1px solid rgba(244,121,32,.28);border-radius:14px;margin:18px 16px 0;padding:14px 18px}
+.prog-top{display:flex;justify-content:space-between;margin-bottom:8px}
+.prog-label{font-size:13px;color:#F5E6C8;font-weight:600}
+.prog-count{font-size:13px;color:#F47920;font-weight:700}
+.prog-bg{background:rgba(255,255,255,.1);border-radius:99px;height:8px}
+.prog-fill{background:linear-gradient(90deg,#F47920,#FFB347);border-radius:99px;height:8px;transition:width .5s}
+.prog-pct{font-size:11px;color:rgba(245,230,200,.55);text-align:right;margin-top:4px}
+.tabs{display:flex;gap:8px;padding:16px 16px 0}
+.tab{flex:1;padding:8px 4px;border-radius:9px;border:1.5px solid rgba(244,121,32,.3);background:rgba(0,0,0,.18);color:#F5E6C8;font-size:11px;font-weight:600;cursor:pointer;text-align:center;transition:all .2s}
+.tab.on{background:#F47920;border-color:#F47920;color:#fff}
+.tab .sp{display:block;font-size:10px;color:rgba(255,255,255,.6);margin-top:2px}
+.tab.on .sp{color:rgba(255,255,255,.85)}
+.btn-z{display:block;margin:12px auto 0;background:transparent;border:1px solid rgba(244,121,32,.35);color:rgba(245,230,200,.55);font-size:11px;border-radius:7px;padding:5px 16px;cursor:pointer}
+.btn-z:hover{border-color:#F47920;color:#F47920}
+.sem{display:none;padding:0 16px;margin-top:18px}
+.sem.vis{display:block}
+.sem-t{font-size:14px;font-weight:700;color:#F47920;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(244,121,32,.22)}
+.card{background:rgba(0,0,0,.2);border:1px solid rgba(245,230,200,.1);border-left:3px solid #F47920;border-radius:10px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.card:hover{background:rgba(0,0,0,.3)}
+.card.ok{border-left-color:#A8C850;background:rgba(107,140,58,.15)}
+.ct{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.dia{font-size:10px;font-weight:700;color:#F47920;text-transform:uppercase;letter-spacing:.8px}
+.card.ok .dia{color:#A8C850}
+.chk{width:22px;height:22px;border-radius:50%;border:2px solid rgba(244,121,32,.45);display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent;flex-shrink:0;transition:all .2s}
+.card.ok .chk{background:#A8C850;border-color:#A8C850;color:#fff}
+.nome{font-size:14px;font-weight:700;color:#F5E6C8;margin:4px 0 3px}
+.desc{font-size:12px;color:rgba(245,230,200,.65);line-height:1.55}
+.dica{font-size:11px;color:rgba(168,200,80,.85);font-style:italic;margin-top:5px}
+.dicas-box{margin:24px 16px 0;background:rgba(0,0,0,.18);border:1px solid rgba(244,121,32,.18);border-radius:12px;padding:16px}
+.dicas-t{font-size:13px;font-weight:700;color:#F47920;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+.di{margin-bottom:12px}
+.dn{font-size:12px;font-weight:700;color:#F5E6C8;margin-bottom:3px}
+.dt{font-size:11px;color:rgba(245,230,200,.65);line-height:1.55}
+.rodape{text-align:center;margin-top:26px;font-size:11px;color:rgba(245,230,200,.38);padding:0 16px 40px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img class="logo-img" src="data:image/jpeg;base64,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" alt="Martina Vasconcellos Personal Trainer"/>
+  <div class="tit">Planilha de Treino "30 dias" — Janice</div>
+  <div class="sub">Objetivo: Caminho de Santiago</div>
+</div>
+
+<div class="prog-box">
+  <div class="prog-top"><span class="prog-label">Sua jornada</span><span class="prog-count" id="cnt">0 / 23 treinos</span></div>
+  <div class="prog-bg"><div class="prog-fill" id="bar" style="width:0%"></div></div>
+  <div class="prog-pct" id="pct">0% concluído</div>
+</div>
+
+<div class="tabs">
+  <div class="tab on" onclick="ir(1,this)">Semana 1<span class="sp" id="ps1">0/6</span></div>
+  <div class="tab" onclick="ir(2,this)">Semana 2<span class="sp" id="ps2">0/6</span></div>
+  <div class="tab" onclick="ir(3,this)">Semana 3<span class="sp" id="ps3">0/6</span></div>
+  <div class="tab" onclick="ir(4,this)">Semana 4<span class="sp" id="ps4">0/5</span></div>
+</div>
+<button class="btn-z" onclick="zerar()">↺ Zerar progresso</button>
+
+<!-- SEMANA 1 -->
+<div class="sem vis" id="s1">
+  <div class="sem-t">Semana 1 — Adaptação</div>
+  <div class="card" onclick="marcar(this)" data-s="1"><div class="ct"><span class="dia">Segunda</span><div class="chk">✓</div></div><div class="nome">Trote + Caminhada</div><div class="desc">5 min caminhada · 6x (1 min trote / 3 min caminhada) — Total 27 min · Mobilidade/Força Treino 1</div><div class="dica">Comece devagar, sentindo como seu corpo responde.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="1"><div class="ct"><span class="dia">Terça</span><div class="chk">✓</div></div><div class="nome">Funcional SESC</div><div class="desc">Treino funcional no SESC.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="1"><div class="ct"><span class="dia">Quarta</span><div class="chk">✓</div></div><div class="nome">Trote + Caminhada</div><div class="desc">5 min caminhada · 8x (45s–1 min trote / 2 min caminhada) · Mobilidade/Força Treino 1</div><div class="dica">Se o trote for menor que 1 min, complete o restante caminhando.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="1"><div class="ct"><span class="dia">Quinta</span><div class="chk">✓</div></div><div class="nome">Funcional SESC</div><div class="desc">Treino funcional no SESC.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="1"><div class="ct"><span class="dia">Sexta</span><div class="chk">✓</div></div><div class="nome">Trote contínuo</div><div class="desc">5 min caminhada · 20 min alternando trote e caminhada · Mobilidade/Força Treino 1</div><div class="dica">Tente trotar o máximo de tempo possível dentro dos 20 minutos.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="1"><div class="ct"><span class="dia">Sáb / Dom</span><div class="chk">✓</div></div><div class="nome">Longo em trilhas</div><div class="desc">Caminhada longa em trilhas.</div><div class="dica">Inicie com trilhas mais curtas e fáceis.</div></div>
+</div>
+
+<!-- SEMANA 2 -->
+<div class="sem" id="s2">
+  <div class="sem-t">Semana 2 — Progressão</div>
+  <div class="card" onclick="marcar(this)" data-s="2"><div class="ct"><span class="dia">Segunda</span><div class="chk">✓</div></div><div class="nome">Trote + Caminhada</div><div class="desc">5 min caminhada · 8x (2 min trote / 2 min caminhada) — Total 37 min · Mobilidade/Força Treino 2</div></div>
+  <div class="card" onclick="marcar(this)" data-s="2"><div class="ct"><span class="dia">Terça</span><div class="chk">✓</div></div><div class="nome">Funcional SESC</div><div class="desc">Treino funcional no SESC.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="2"><div class="ct"><span class="dia">Quarta</span><div class="chk">✓</div></div><div class="nome">Trote + Caminhada</div><div class="desc">5 min caminhada · 6x (3 min trote / 1 min caminhada) · Mobilidade/Força Treino 2</div></div>
+  <div class="card" onclick="marcar(this)" data-s="2"><div class="ct"><span class="dia">Quinta</span><div class="chk">✓</div></div><div class="nome">Funcional SESC</div><div class="desc">Treino funcional no SESC.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="2"><div class="ct"><span class="dia">Sexta</span><div class="chk">✓</div></div><div class="nome">Trote contínuo</div><div class="desc">5 min caminhada · 25 min trote contínuo ou intervalado · Mobilidade/Força Treino 2</div><div class="dica">Mantenha um ritmo confortável onde consegue conversar.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="2"><div class="ct"><span class="dia">Sáb / Dom</span><div class="chk">✓</div></div><div class="nome">Longo em trilhas</div><div class="desc">Caminhada longa em trilhas com mochila leve (2–3 kg).</div><div class="dica">Aumente um pouco a distância em relação à semana anterior.</div></div>
+</div>
+
+<!-- SEMANA 3 -->
+<div class="sem" id="s3">
+  <div class="sem-t">Semana 3 — Intensificação</div>
+  <div class="card" onclick="marcar(this)" data-s="3"><div class="ct"><span class="dia">Segunda</span><div class="chk">✓</div></div><div class="nome">Trote + Caminhada</div><div class="desc">5 min caminhada · 5x (4 min trote / 1 min caminhada) — Total 35 min · Mobilidade/Força Treino 3</div></div>
+  <div class="card" onclick="marcar(this)" data-s="3"><div class="ct"><span class="dia">Terça</span><div class="chk">✓</div></div><div class="nome">Funcional SESC</div><div class="desc">Treino funcional no SESC com foco em membros inferiores.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="3"><div class="ct"><span class="dia">Quarta</span><div class="chk">✓</div></div><div class="nome">Trote contínuo</div><div class="desc">5 min caminhada · 30 min trote contínuo · Mobilidade/Força Treino 3</div><div class="dica">Primeiro trote longo contínuo — celebre essa conquista!</div></div>
+  <div class="card" onclick="marcar(this)" data-s="3"><div class="ct"><span class="dia">Quinta</span><div class="chk">✓</div></div><div class="nome">Funcional SESC</div><div class="desc">Treino funcional no SESC.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="3"><div class="ct"><span class="dia">Sexta</span><div class="chk">✓</div></div><div class="nome">Trote + Força</div><div class="desc">5 min caminhada · 20 min trote · Mobilidade/Força Treino 3</div></div>
+  <div class="card" onclick="marcar(this)" data-s="3"><div class="ct"><span class="dia">Sáb / Dom</span><div class="chk">✓</div></div><div class="nome">Longo em trilhas</div><div class="desc">Caminhada longa com mochila (3–5 kg).</div><div class="dica">Simule as condições do Caminho de Santiago.</div></div>
+</div>
+
+<!-- SEMANA 4 -->
+<div class="sem" id="s4">
+  <div class="sem-t">Semana 4 — Consolidação</div>
+  <div class="card" onclick="marcar(this)" data-s="4"><div class="ct"><span class="dia">Segunda</span><div class="chk">✓</div></div><div class="nome">Trote contínuo</div><div class="desc">5 min caminhada · 35 min trote contínuo · Mobilidade/Força Treino 4</div><div class="dica">Você chegou até aqui — confie no seu preparo!</div></div>
+  <div class="card" onclick="marcar(this)" data-s="4"><div class="ct"><span class="dia">Terça</span><div class="chk">✓</div></div><div class="nome">Funcional SESC</div><div class="desc">Treino funcional no SESC — última semana, foco total!</div></div>
+  <div class="card" onclick="marcar(this)" data-s="4"><div class="ct"><span class="dia">Quarta</span><div class="chk">✓</div></div><div class="nome">Trote leve + Mobilidade</div><div class="desc">20 min trote leve · Alongamento completo · Mobilidade/Força Treino 4</div></div>
+  <div class="card" onclick="marcar(this)" data-s="4"><div class="ct"><span class="dia">Quinta</span><div class="chk">✓</div></div><div class="nome">Funcional SESC</div><div class="desc">Treino funcional no SESC.</div></div>
+  <div class="card" onclick="marcar(this)" data-s="4"><div class="ct"><span class="dia">Sáb / Dom</span><div class="chk">✓</div></div><div class="nome">Longo final em trilhas</div><div class="desc">Caminhada longa com mochila completa — simulação real do Caminho!</div><div class="dica">Bom Caminho, Janice! 🥾</div></div>
+</div>
+
+<div class="dicas-box">
+  <div class="dicas-t">Dicas importantes</div>
+  <div class="di"><div class="dn">Segurança no ambiente</div><div class="dt">Corra em locais movimentados. Prefira parques, calçadas iluminadas ou esteiras. Evite áreas isoladas e horários noturnos. Leve celular carregado e avise alguém do treino.</div></div>
+  <div class="di"><div class="dn">Respeite o corpo, mas puxe o limite</div><div class="dt">Ouça os sinais: desconforto normal? Siga devagar. Dor aguda? Pare na hora. Hidrate-se e alongue após o treino — recuperação é chave para evoluir forte.</div></div>
+  <div class="di"><div class="dn">Postura impecável</div><div class="dt">Ombros relaxados, olhar à frente, braços em 90°, pés aterrissando sob o corpo. Isso previne dores nos joelhos e nas costas.</div></div>
+</div>
+
+<div class="rodape">Feito com carinho para a sua jornada · Bom Caminho! 🥾<br>Martina Vasconcellos · Personal Trainer</div>
+
+<script>
+var TOT={1:6,2:6,3:6,4:5}, est={};
+try{ est=JSON.parse(localStorage.getItem('mv-treino')||'{}'); }catch(e){}
+function salvar(){ try{ localStorage.setItem('mv-treino',JSON.stringify(est)); }catch(e){} }
+function atualizar(){
+  var tot=0,ok=0;
+  for(var s in TOT){ tot+=TOT[s]; ok+=(est[s]||[]).length; }
+  document.getElementById('cnt').textContent=ok+' / '+tot+' treinos';
+  var p=Math.round(ok/tot*100);
+  document.getElementById('bar').style.width=p+'%';
+  document.getElementById('pct').textContent=p+'% concluído';
+  for(var s in TOT) document.getElementById('ps'+s).textContent=(est[s]||[]).length+'/'+TOT[s];
+}
+function carregarCards(){
+  for(var s=1;s<=4;s++){
+    var cards=document.querySelectorAll('#s'+s+' .card'), ok=est[s]||[];
+    cards.forEach(function(c,i){ if(ok.indexOf(i)!==-1) c.classList.add('ok'); else c.classList.remove('ok'); });
+  }
+  atualizar();
+}
+function marcar(card){
+  var s=card.getAttribute('data-s');
+  var cards=document.querySelectorAll('#s'+s+' .card');
+  var idx=Array.prototype.indexOf.call(cards,card);
+  if(!est[s]) est[s]=[];
+  var p=est[s].indexOf(idx);
+  if(p===-1) est[s].push(idx); else est[s].splice(p,1);
+  card.classList.toggle('ok');
+  salvar(); atualizar();
+}
+function ir(n,btn){
+  document.querySelectorAll('.sem').forEach(function(x){ x.classList.remove('vis'); });
+  document.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('on'); });
+  document.getElementById('s'+n).classList.add('vis');
+  btn.classList.add('on');
+}
+function zerar(){
+  if(confirm('Zerar todo o progresso?')){ est={}; salvar(); carregarCards(); }
+}
+carregarCards();
+</script>
+</body>
+</html>
